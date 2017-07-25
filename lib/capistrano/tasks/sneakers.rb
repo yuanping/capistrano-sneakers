@@ -102,8 +102,8 @@ namespace :sneakers do
       info "Starting the sneakers processes"
       #workers.each do |worker|
 
-      with rails_env: fetch(:sneakers_env), workers: workers do
-        rake 'sneakers:run'
+      with rails_env: fetch(:sneakers_env) do
+        rake "sneakers:run WORKERS=#{workers}"
       end
       #execute :bundle, :exec, :sneakers, args.compact.join(' ')
     else
@@ -204,7 +204,7 @@ namespace :sneakers do
 
   desc 'Restart sneakers'
   task :restart do
-    invoke! 'sneakers:stop'
+    invoke 'sneakers:stop'
     invoke 'sneakers:start'
   end
 
